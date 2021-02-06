@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //component
 import Todo from "./Todo";
 import Header from "./Header";
+import Loading from "./Loading";
 
 import api from "../hook/api";
 import history from "../function/history";
@@ -23,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AllTodo() {
     const classes = useStyles();
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getAllUserData();
@@ -30,6 +32,7 @@ export default function AllTodo() {
     }, []);
 
     async function getAllUserData() {
+        setLoading(true);
         const result = await api({
             method: "POST",
             url: "/user/getAllUserData",
@@ -47,23 +50,28 @@ export default function AllTodo() {
                 history.push("/login");
             }
         }
+        setLoading(false);
     }
 
     return (
         <>
             <Header />
-            <div className={classes.container}>
-                {users &&
-                    users.map((item, idx) => {
-                        return (
-                            <Todo
-                                key={idx}
-                                data={item}
-                                getTodo={getAllUserData}
-                            />
-                        );
-                    })}
-            </div>
+            {loading ? (
+                <Loading height={100} />
+            ) : (
+                <div className={classes.container}>
+                    {users &&
+                        users.map((item, idx) => {
+                            return (
+                                <Todo
+                                    key={idx}
+                                    data={item}
+                                    getTodo={getAllUserData}
+                                />
+                            );
+                        })}
+                </div>
+            )}
         </>
     );
 }

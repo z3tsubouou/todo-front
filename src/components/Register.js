@@ -103,8 +103,6 @@ export default function Register() {
     }
 
     async function submit(e) {
-        setLoading(!loading);
-
         if (
             form.email !== "" &&
             form.password !== "" &&
@@ -115,6 +113,7 @@ export default function Register() {
             valid.name === true &&
             valid.password2 === true
         ) {
+            setLoading(true);
             const result = await api({
                 method: "POST",
                 url: "/user/register",
@@ -126,10 +125,10 @@ export default function Register() {
             });
             if (result.success === true) {
                 history.push("/login");
-                setLoading(!loading);
             } else {
                 history.push("/home");
             }
+            setLoading(false);
         }
     }
 
@@ -137,7 +136,7 @@ export default function Register() {
         <>
             <Header />
             {loading ? (
-                <Loading height={50} />
+                <Loading height={100} />
             ) : (
                 <div className={classes.container}>
                     <Paper elevation={3} className={classes.paper}>

@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 //component
 import Todo from "./Todo";
 import Header from "./Header";
+import Loading from "./Loading";
 
 //function
 import api from "../hook/api";
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
     const classes = useStyles();
     const [user, setUser] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         getTodo();
@@ -31,6 +33,7 @@ export default function Home() {
     }, []);
 
     async function getTodo() {
+        setLoading(true);
         const result = await api({
             method: "POST",
             url: "/user/getTodo",
@@ -49,14 +52,19 @@ export default function Home() {
                 history.push("/login");
             }
         }
+        setLoading(false);
     }
 
     return (
         <>
             <Header />
-            <div className={classes.container}>
-                <Todo data={user} getTodo={getTodo} />
-            </div>
+            {loading ? (
+                <Loading height={100} />
+            ) : (
+                <div className={classes.container}>
+                    <Todo data={user} getTodo={getTodo} />
+                </div>
+            )}
         </>
     );
 }

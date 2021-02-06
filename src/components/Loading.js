@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Loading(props) {
     const classes = useStyles();
+    console.log(props.height);
     return (
         <div
             className={classes.container}

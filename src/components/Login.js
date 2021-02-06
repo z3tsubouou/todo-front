@@ -97,13 +97,13 @@ export default function Login() {
     }
 
     async function submit(e) {
-        setLoading(!loading);
         if (
             form.email !== "" &&
             form.password !== "" &&
             valid.email === true &&
             valid.password === true
         ) {
+            setLoading(true);
             const result = await api({
                 method: "POST",
                 url: "/user/login",
@@ -121,11 +121,10 @@ export default function Login() {
                     localStorage.setItem("admin", result.data.user.admin);
                 }
                 history.push("/home");
-                setLoading(!loading);
             } else {
                 alert(result.message);
-                setLoading(false);
             }
+            setLoading(false);
         }
     }
 
@@ -133,7 +132,7 @@ export default function Login() {
         <>
             <Header />
             {loading ? (
-                <Loading height={50} />
+                <Loading height={100} />
             ) : (
                 <div className={classes.container}>
                     <Paper elevation={3} className={classes.paper}>
