@@ -38,7 +38,7 @@ export const AdminRoute = ({ component: Component, ...rest }) => (
                 <Component {...props} />
             ) : (
                 <Redirect
-                    to={{ pathname: "/all", state: { from: props.location } }}
+                    to={{ pathname: "/login", state: { from: props.location } }}
                 />
             )
         }

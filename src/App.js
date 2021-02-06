@@ -17,7 +17,7 @@ const AllTodo = lazy(() => import("./components/AllTodo"));
 function App() {
     return (
         <Router history={history}>
-            <Suspense fallback={<Loading />}>
+            <Suspense fallback={<Loading height={0} />}>
                 <Switch>
                     <Route
                         exact

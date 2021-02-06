@@ -137,7 +137,7 @@ export default function Register() {
         <>
             <Header />
             {loading ? (
-                <Loading />
+                <Loading height={50} />
             ) : (
                 <div className={classes.container}>
                     <Paper elevation={3} className={classes.paper}>

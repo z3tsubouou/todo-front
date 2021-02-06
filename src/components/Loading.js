@@ -6,14 +6,16 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        height: "100vh",
     },
 }));
 
-function Loading() {
+function Loading(props) {
     const classes = useStyles();
     return (
-        <div className={classes.container}>
+        <div
+            className={classes.container}
+            style={{ height: `calc(100vh - ${props.height}px)` }}
+        >
             <CircularProgress />
         </div>
     );
