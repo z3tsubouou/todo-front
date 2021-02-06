@@ -37,7 +37,6 @@ export default function AllTodo() {
             },
             token: localStorage.getItem("authorization"),
         });
-        console.log(result);
         if (result.success === true) {
             setUsers(result.data.user);
         } else {
@@ -55,7 +54,6 @@ export default function AllTodo() {
             <div className={classes.container}>
                 {users &&
                     users.map((item, idx) => {
-                        console.log(item);
                         return (
                             <Todo
                                 key={idx}

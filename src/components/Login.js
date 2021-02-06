@@ -113,7 +113,6 @@ export default function Login() {
                 },
             });
             if (result.success === true) {
-                console.log(result.data.jsonToken);
                 localStorage.setItem("authorization", result.data.jsonToken);
                 localStorage.setItem("_id", result.data.user._id);
                 localStorage.setItem("email", result.data.user.email);
