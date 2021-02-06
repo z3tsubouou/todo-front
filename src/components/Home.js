@@ -7,6 +7,7 @@ import Header from "./Header";
 
 //function
 import api from "../hook/api";
+import history from "../function/history";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -43,7 +44,7 @@ export default function Home() {
             setUser(result.data.user);
         } else {
             alert(result.message);
-            if (message === "Invalid token") {
+            if (result.message === "Invalid token") {
                 localStorage.clear();
                 history.push("/login");
             }

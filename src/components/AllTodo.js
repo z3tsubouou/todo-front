@@ -6,6 +6,7 @@ import Todo from "./Todo";
 import Header from "./Header";
 
 import api from "../hook/api";
+import history from "../function/history";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -41,7 +42,7 @@ export default function AllTodo() {
             setUsers(result.data.user);
         } else {
             alert(result.message);
-            if (message === "Invalid token") {
+            if (result.message === "Invalid token") {
                 localStorage.clear();
                 history.push("/login");
             }

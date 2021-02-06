@@ -8,6 +8,7 @@ import ClearIcon from "@material-ui/icons/Clear";
 
 //function
 import api from "../hook/api";
+import history from "../function/history";
 
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
@@ -105,7 +106,7 @@ export default function Todo(props) {
             props.getTodo();
         } else {
             alert(result.message);
-            if (message === "Invalid token") {
+            if (result.message === "Invalid token") {
                 localStorage.clear();
                 history.push("/login");
             }
@@ -127,7 +128,7 @@ export default function Todo(props) {
             props.getTodo();
         } else {
             alert(result.message);
-            if (message === "Invalid token") {
+            if (result.message === "Invalid token") {
                 localStorage.clear();
                 history.push("/login");
             }
@@ -148,7 +149,7 @@ export default function Todo(props) {
             props.getTodo();
         } else {
             alert(result.message);
-            if (message === "Invalid token") {
+            if (result.message === "Invalid token") {
                 localStorage.clear();
                 history.push("/login");
             }
