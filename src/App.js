@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { lazy, Suspense } from "react";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
+
+//function
+import history from "./function/history";
+
+//Components
+import Loading from "./components/Loading.js";
+import { PrivateRoute, AuthRoute, AdminRoute } from "./function/PrivateRoute";
+
+const Login = lazy(() => import("./components/Login.js"));
+const Register = lazy(() => import("./components/Register.js"));
+const Home = lazy(() => import("./components/Home.js"));
+const Footer = lazy(() => import("./components/Footer"));
+const AllTodo = lazy(() => import("./components/AllTodo"));
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router history={history}>
+            <Suspense fallback={<Loading />}>
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => <Redirect from="/" to="home" />}
+                    />
+                    <PrivateRoute exact path="/home" component={Home} />
+                    <AuthRoute exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} />
+                    <AdminRoute exact path="/all" component={AllTodo} />
+                </Switch>
+                <Footer />
+            </Suspense>
+        </Router>
+    );
 }
 
 export default App;
