@@ -43,6 +43,10 @@ export default function Home() {
             setUser(result.data.user);
         } else {
             alert(result.message);
+            if (message === "Invalid token") {
+                localStorage.clear();
+                history.push("/login");
+            }
         }
     }
 

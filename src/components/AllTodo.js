@@ -42,6 +42,10 @@ export default function AllTodo() {
             setUsers(result.data.user);
         } else {
             alert(result.message);
+            if (message === "Invalid token") {
+                localStorage.clear();
+                history.push("/login");
+            }
         }
     }
 

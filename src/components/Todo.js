@@ -88,7 +88,6 @@ export default function Todo(props) {
 
     async function onChange(e) {
         setTodo(e.target.value);
-        console.log(todo);
     }
 
     async function addTodo() {
@@ -106,6 +105,10 @@ export default function Todo(props) {
             props.getTodo();
         } else {
             alert(result.message);
+            if (message === "Invalid token") {
+                localStorage.clear();
+                history.push("/login");
+            }
         }
     }
 
@@ -124,6 +127,10 @@ export default function Todo(props) {
             props.getTodo();
         } else {
             alert(result.message);
+            if (message === "Invalid token") {
+                localStorage.clear();
+                history.push("/login");
+            }
         }
     }
 
@@ -141,6 +148,10 @@ export default function Todo(props) {
             props.getTodo();
         } else {
             alert(result.message);
+            if (message === "Invalid token") {
+                localStorage.clear();
+                history.push("/login");
+            }
         }
     }
 
