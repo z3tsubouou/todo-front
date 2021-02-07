@@ -12,7 +12,7 @@ export default async function api({ method, url, data, token }) {
 
     const options = {
         method: method,
-        url: `http://localhost:8000${url}`,
+        url: `https://betatodolistapp.herokuapp.com${url}`,
         headers: header,
         data,
     };
