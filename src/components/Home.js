@@ -34,25 +34,31 @@ export default function Home() {
 
     async function getTodo() {
         setLoading(true);
-        const result = await api({
+        api({
             method: "POST",
             url: "/user/getTodo",
             data: {
                 _id: localStorage.getItem("_id"),
             },
             token: localStorage.getItem("authorization"),
-        });
-
-        if (result.success === true) {
-            setUser(result.data.user);
-        } else {
-            alert(result.message);
-            if (result.message === "Invalid token") {
-                localStorage.clear();
-                history.push("/login");
-            }
-        }
-        setLoading(false);
+        })
+            .then((result) => {
+                if (result.success === true) {
+                    setUser(result.data.user);
+                    setLoading(false);
+                } else {
+                    alert(result.message);
+                    setLoading(false);
+                    if (result.message === "Invalid token") {
+                        localStorage.clear();
+                        history.push("/login");
+                    }
+                }
+            })
+            .catch((error) => {
+                alert(error);
+                setLoading(false);
+            });
     }
 
     return (

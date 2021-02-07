@@ -104,27 +104,41 @@ export default function Login() {
             valid.password === true
         ) {
             setLoading(true);
-            const result = await api({
+            api({
                 method: "POST",
                 url: "/user/login",
                 data: {
                     email: form.email,
                     password: form.password,
                 },
-            });
-            if (result.success === true) {
-                localStorage.setItem("authorization", result.data.jsonToken);
-                localStorage.setItem("_id", result.data.user._id);
-                localStorage.setItem("email", result.data.user.email);
-                localStorage.setItem("name", result.data.user.name);
-                if (result.data.user.admin) {
-                    localStorage.setItem("admin", result.data.user.admin);
-                }
-                history.push("/home");
-            } else {
-                alert(result.message);
-            }
-            setLoading(false);
+            })
+                .then((result) => {
+                    if (result.success === true) {
+                        localStorage.setItem(
+                            "authorization",
+                            result.data.jsonToken,
+                        );
+                        localStorage.setItem("_id", result.data.user._id);
+                        localStorage.setItem("email", result.data.user.email);
+                        localStorage.setItem("name", result.data.user.name);
+                        if (result.data.user.admin) {
+                            localStorage.setItem(
+                                "admin",
+                                result.data.user.admin,
+                            );
+                        }
+                        setLoading(false);
+
+                        history.push("/home");
+                    } else {
+                        alert(result.message);
+                        setLoading(false);
+                    }
+                })
+                .catch((error) => {
+                    alert(error);
+                    setLoading(false);
+                });
         }
     }
 

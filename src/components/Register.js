@@ -114,7 +114,7 @@ export default function Register() {
             valid.password2 === true
         ) {
             setLoading(true);
-            const result = await api({
+            api({
                 method: "POST",
                 url: "/user/register",
                 data: {
@@ -122,13 +122,20 @@ export default function Register() {
                     email: form.email,
                     password: form.password,
                 },
-            });
-            if (result.success === true) {
-                history.push("/login");
-            } else {
-                history.push("/home");
-            }
-            setLoading(false);
+            })
+                .then((result) => {
+                    if (result.success === true) {
+                        history.push("/login");
+                        setLoading(false);
+                    } else {
+                        history.push("/home");
+                        setLoading(false);
+                    }
+                })
+                .catch((error) => {
+                    alert(error);
+                    setLoading(false);
+                });
         }
     }
 

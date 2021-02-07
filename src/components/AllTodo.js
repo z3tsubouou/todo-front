@@ -33,24 +33,32 @@ export default function AllTodo() {
 
     async function getAllUserData() {
         setLoading(true);
-        const result = await api({
+        api({
             method: "POST",
             url: "/user/getAllUserData",
             data: {
                 _id: localStorage.getItem("_id"),
             },
             token: localStorage.getItem("authorization"),
-        });
-        if (result.success === true) {
-            setUsers(result.data.user);
-        } else {
-            alert(result.message);
-            if (result.message === "Invalid token") {
-                localStorage.clear();
-                history.push("/login");
-            }
-        }
-        setLoading(false);
+        })
+            .then((result) => {
+                if (result.success === true) {
+                    setUsers(result.data.user);
+                    setLoading(false);
+                } else {
+                    alert(result.message);
+                    if (result.message === "Invalid token") {
+                        localStorage.clear();
+                        history.push("/login");
+                        setLoading(false);
+                    }
+                    setLoading(false);
+                }
+            })
+            .catch((error) => {
+                alert(error);
+                setLoading(false);
+            });
     }
 
     return (

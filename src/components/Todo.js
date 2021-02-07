@@ -92,7 +92,7 @@ export default function Todo(props) {
     }
 
     async function addTodo() {
-        const result = await api({
+        await api({
             method: "POST",
             url: "/user/addTodo",
             data: {
@@ -100,21 +100,25 @@ export default function Todo(props) {
                 description: todo,
             },
             token: localStorage.getItem("authorization"),
-        });
-
-        if (result.success === true) {
-            props.getTodo();
-        } else {
-            alert(result.message);
-            if (result.message === "Invalid token") {
-                localStorage.clear();
-                history.push("/login");
-            }
-        }
+        })
+            .then((result) => {
+                if (result.success === true) {
+                    props.getTodo();
+                } else {
+                    alert(result.message);
+                    if (result.message === "Invalid token") {
+                        localStorage.clear();
+                        history.push("/login");
+                    }
+                }
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
 
     async function deleteTodo(todo_id) {
-        const result = await api({
+        api({
             method: "POST",
             url: "/user/deleteTodo",
             data: {
@@ -122,38 +126,46 @@ export default function Todo(props) {
                 todo_id: todo_id,
             },
             token: localStorage.getItem("authorization"),
-        });
-
-        if (result.success === true) {
-            props.getTodo();
-        } else {
-            alert(result.message);
-            if (result.message === "Invalid token") {
-                localStorage.clear();
-                history.push("/login");
-            }
-        }
+        })
+            .then((result) => {
+                if (result.success === true) {
+                    props.getTodo();
+                } else {
+                    alert(result.message);
+                    if (result.message === "Invalid token") {
+                        localStorage.clear();
+                        history.push("/login");
+                    }
+                }
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
 
     async function endTodo(todo_id) {
-        const result = await api({
+        api({
             method: "POST",
             url: "/user/endTodo",
             data: {
                 _id: todo_id,
             },
             token: localStorage.getItem("authorization"),
-        });
-
-        if (result.success === true) {
-            props.getTodo();
-        } else {
-            alert(result.message);
-            if (result.message === "Invalid token") {
-                localStorage.clear();
-                history.push("/login");
-            }
-        }
+        })
+            .then((result) => {
+                if (result.success === true) {
+                    props.getTodo();
+                } else {
+                    alert(result.message);
+                    if (result.message === "Invalid token") {
+                        localStorage.clear();
+                        history.push("/login");
+                    }
+                }
+            })
+            .catch((error) => {
+                alert(error);
+            });
     }
 
     return (
