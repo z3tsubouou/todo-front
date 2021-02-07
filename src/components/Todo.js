@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "#efefef",
         marginTop: 10,
         borderRadius: 5,
+        overflowX: "auto",
     },
     todoEndContainer: {
         height: 50,
@@ -57,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 10,
         borderRadius: 5,
         backgroundColor: "#333333",
+        overflowX: "auto",
     },
     todo: {
         overflowX: "auto",
