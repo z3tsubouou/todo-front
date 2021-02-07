@@ -178,7 +178,7 @@ export default function Todo(props) {
                     <TextField
                         name="todo"
                         type="text"
-                        label="Todo"
+                        label="Төлөвлөсөн зүйлээ бичнэ үү!"
                         id="outlined-basic"
                         variant="outlined"
                         size="small"
